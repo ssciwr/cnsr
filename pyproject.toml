@@ -13,10 +13,10 @@ build-backend = "setuptools.build_meta"
 # single source of truth for cnsr's version
 [project]
 name = "cnsr"
-description = "Add short description here"
+description = "Lab code package for the CNSR lab at Heidelberg University"
 readme = "README.md"
 maintainers = [
-    { name = "Dominic Kempf", email = "your@email.com" },
+    { name = "Dominic Kempf", email = "ssc@iwr.uni-heidelberg.de" },
 ]
 dynamic = ["version"]
 requires-python = ">=3.8"
@@ -26,20 +26,12 @@ classifiers = [
     "Operating System :: OS Independent",
     "License :: OSI Approved :: MIT License",
 ]
-dependencies = [
-]
+dependencies = []
 
 [project.optional-dependencies]
 tests = [
     "pytest",
-    "pytest-cov",
 ]
-docs = [
-    "sphinx",
-    "sphinx_mdinclude",
-    "sphinx_rtd_theme",
-]
-
 
 # The following section contains setuptools-specific configuration
 # options. For a full reference of available options, check the overview
