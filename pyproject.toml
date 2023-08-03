@@ -17,6 +17,8 @@ description = "Lab code package for the CNSR lab at Heidelberg University"
 readme = "README.md"
 maintainers = [
     { name = "Dominic Kempf", email = "ssc@iwr.uni-heidelberg.de" },
+    { name = "Torsten Wüstenberg", email = "torsten.wuestenberg@psychologie.uni-heidelberg.de" },
+    { name = "Daniel Holt", email = "daniel.holt@psychologie.uni-heidelberg.de" },
 ]
 dynamic = ["version"]
 requires-python = ">=3.8"
