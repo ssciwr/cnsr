@@ -26,12 +26,29 @@ classifiers = [
     "Operating System :: OS Independent",
     "License :: OSI Approved :: MIT License",
 ]
-dependencies = []
+dependencies = [
+    "click",
+    "ipyfilechooser",
+    "jupyter_app_launcher >=0.1,<1",
+    "jupyterlab<4",
+    "matplotlib",
+    "mne>=1.4,<2",
+    "mne-nirs>=0.5,<1",
+    "neurokit2",
+    "nilearn>=0.10,<1",
+    "numpy",
+    "openpyxl>=3.1,<4",
+    "pandas",
+]
 
 [project.optional-dependencies]
 tests = [
     "pytest",
 ]
+
+[project.scripts]
+cnsr_copy_notebooks = "cnsr.install:copy_notebooks"
+install_cnsr_launcher_data = "cnsr.install:install_cnsr_launcher_data"
 
 # The following section contains setuptools-specific configuration
 # options. For a full reference of available options, check the overview
