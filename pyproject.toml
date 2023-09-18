@@ -20,7 +20,7 @@ maintainers = [
     { name = "Torsten Wüstenberg", email = "torsten.wuestenberg@psychologie.uni-heidelberg.de" },
     { name = "Daniel Holt", email = "daniel.holt@psychologie.uni-heidelberg.de" },
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = { text = "MIT" }
 classifiers = [
     "Programming Language :: Python :: 3",
