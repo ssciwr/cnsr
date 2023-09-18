@@ -4,7 +4,6 @@
 [build-system]
 requires = [
     "setuptools >=61",
-    "setuptools_scm >=7",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -13,6 +12,7 @@ build-backend = "setuptools.build_meta"
 # single source of truth for cnsr's version
 [project]
 name = "cnsr"
+version = "0.0.1"
 description = "Lab code package for the CNSR lab at Heidelberg University"
 readme = "README.md"
 maintainers = [
@@ -20,7 +20,6 @@ maintainers = [
     { name = "Torsten Wüstenberg", email = "torsten.wuestenberg@psychologie.uni-heidelberg.de" },
     { name = "Daniel Holt", email = "daniel.holt@psychologie.uni-heidelberg.de" },
 ]
-dynamic = ["version"]
 requires-python = ">=3.8"
 license = { text = "MIT" }
 classifiers = [
@@ -59,14 +58,6 @@ install_cnsr_launcher_data = "cnsr.install:install_cnsr_launcher_data"
 packages = [
     "cnsr",
 ]
-
-# Configure setuptools_scm, which extracts the version number from
-# the version control system. For more information see its documentation:
-# https://github.com/pypa/setuptools_scm
-[tool.setuptools_scm]
-version_scheme = "post-release"
-local_scheme = "node-and-date"
-write_to = "cnsr/_version.py"
 
 # The following is the configuration for the pytest test suite
 [tool.pytest.ini_options]

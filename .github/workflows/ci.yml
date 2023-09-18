@@ -19,14 +19,14 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.8", "3.9", "3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        # setuptools_scm requires a non-shallow clone of the repository
-        fetch-depth: 0
 
     - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python }}
 
     - name: Install Python package
       run: |
