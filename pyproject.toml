@@ -12,7 +12,7 @@ build-backend = "setuptools.build_meta"
 # single source of truth for cnsr's version
 [project]
 name = "cnsr"
-version = "0.0.1"
+version = "0.0.2"
 description = "Lab code package for the CNSR lab at Heidelberg University"
 readme = "README.md"
 maintainers = [
@@ -28,18 +28,18 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-    "click >=8.1,<9",
-    "ipyfilechooser >=0.6,<1",
+    "click <9",
+    "ipyfilechooser <1",
     "jupyter_app_launcher >=0.1,<1",
     "jupyterlab >=3.1,<4",
-    "matplotlib >=3.7,<4",
-    "mne >=1.4,<2",
-    "mne-nirs >=0.5,<1",
-    "neurokit2 >=0.2,<1",
-    "nilearn >=0.10,<1",
-    "numpy >=1.25,<2",
-    "openpyxl >=3.1,<4",
-    "pandas >=2,<3",
+    "matplotlib <4",
+    "mne <2",
+    "mne-nirs <1",
+    "neurokit2 <1",
+    "nilearn <1",
+    "numpy <2",
+    "openpyxl <4",
+    "pandas <3",
 ]
 
 [project.optional-dependencies]
