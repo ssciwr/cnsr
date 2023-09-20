@@ -82,8 +82,10 @@ class DataManagerBase:
 class EDADataManager(DataManagerBase):
     def find_patients(self):
         patients = []
-        for f in glob.glob("*.txt", root_dir=self._root):
-            patient = re.match("([0-9]*).txt", f).groups()[0]
+        for f in glob.glob(f"{self._root}{os.sep}*.txt"):
+            patient = re.match("([0-9]*).txt", os.path.relpath(f, self._root)).groups()[
+                0
+            ]
             patients.append(patient)
 
         return patients
@@ -96,8 +98,10 @@ class EDADataManager(DataManagerBase):
 class ERNDataManager(DataManagerBase):
     def find_patients(self):
         patients = []
-        for f in glob.glob("sart_*.eeg", root_dir=self._root):
-            patient = re.match("sart_([0-9]*).eeg", f).groups()[0]
+        for f in glob.glob(f"{self._root}{os.sep}sart_*.eeg"):
+            patient = re.match(
+                "sart_([0-9]*).eeg", os.path.relpath(f, self._root)
+            ).groups()[0]
             if all(
                 os.path.exists(os.path.join(self._root, f"sart_{patient}.{ext}"))
                 for ext in ["eeg", "vhdr", "vmrk"]
@@ -122,8 +126,10 @@ class ERNDataManager(DataManagerBase):
 class FAADataManager(DataManagerBase):
     def find_patients(self):
         patients = []
-        for f in glob.glob("*.eeg", root_dir=self._root):
-            patient = re.match("([0-9]*).eeg", f).groups()[0]
+        for f in glob.glob(f"{self._root}{os.sep}*.eeg"):
+            patient = re.match("([0-9]*).eeg", os.path.relpath(f, self._root)).groups()[
+                0
+            ]
             if all(
                 os.path.exists(os.path.join(self._root, f"{patient}.{ext}"))
                 for ext in ["eeg", "vhdr", "vmrk"]
@@ -148,8 +154,10 @@ class FAADataManager(DataManagerBase):
 class HRVDataManager(DataManagerBase):
     def find_patients(self):
         patients = []
-        for f in glob.glob("rest_*.eeg", root_dir=self._root):
-            patient = re.match("rest_([0-9]*).eeg", f).groups()[0]
+        for f in glob.glob(f"{self._root}{os.sep}rest_*.eeg"):
+            patient = re.match(
+                "rest_([0-9]*).eeg", os.path.relpath(f, self._root)
+            ).groups()[0]
             if all(
                 os.path.exists(os.path.join(self._root, f"rest_{patient}.{ext}"))
                 for ext in ["eeg", "vhdr", "vmrk"]
