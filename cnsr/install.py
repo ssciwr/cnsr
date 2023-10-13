@@ -29,19 +29,14 @@ def copy_notebooks(target=None):
 
 
 @click.command()
-def install_cnsr_launcher_data():
+@click.argument(
+    "prefix", type=click.Path(file_okay=False, writable=True), required=True
+)
+def install_cnsr_launcher_data(prefix=None):
     """Install all CNSR launcher data into the Jupyter environment"""
 
-    # Check that we have jupyter - otherwise throw an error
-    try:
-        from jupyter_core import paths
-    except ImportError:
-        raise RuntimeError(
-            "CNSR Launcher data can only be installed when Jupyter(Lab) is installed."
-        )
-
     # Define the paths where to install stuff
-    jupyter_dir = paths.jupyter_path()[0]
+    jupyter_dir = os.path.join(prefix, "share", "jupyter")
     config_dir = os.path.join(jupyter_dir, "jupyter_app_launcher")
     notebook_dir = os.path.join(jupyter_dir, "cnsr")
 
