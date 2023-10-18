@@ -58,12 +58,13 @@ class DataManagerBase:
 
     def _repr_mimebundle_(self, **kwargs):
         # Create interactive UI elements
-        root = ipyfilechooser.FileChooser()
+        root = ipyfilechooser.FileChooser(
+            path=self._root if self._root is not None else os.getcwd(),
+            select_default=True,
+        )
         root.show_only_dirs = True
         root.title = "Data Root Directory"
-        patient = ipywidgets.Dropdown(
-            options=self.find_patients(), description="Patient:"
-        )
+        patient = ipywidgets.Dropdown(description="Patient:")
 
         def _root_callback(c):
             self.root = c.value
@@ -76,6 +77,8 @@ class DataManagerBase:
                 self.patient = p["new"]
 
         patient.observe(_patient_callback, names="value")
+        patient.options = self.find_patients()
+
         return ipywidgets.VBox(children=[root, patient])._repr_mimebundle_(**kwargs)
 
 
