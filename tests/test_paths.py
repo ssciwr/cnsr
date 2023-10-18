@@ -5,34 +5,34 @@ import pytest
 
 
 def test_eda_init(eda):
-    data = EDADataManager(root=eda, patient="12345")
-    assert len(data.find_patients()) == 1
+    data = EDADataManager(root=eda, participant="12345")
+    assert len(data.find_participants()) == 1
     assert data.root == eda
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.filename)
 
 
 def test_eda_property_setter(eda):
     data = EDADataManager()
     data.root = eda
-    data.patient = "12345"
-    assert len(data.find_patients()) == 1
+    data.participant = "12345"
+    assert len(data.find_participants()) == 1
     assert data.root == eda
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.filename)
 
 
-def test_eda_wrong_patient(eda):
+def test_eda_wrong_participant(eda):
     data = EDADataManager(root=eda)
     with pytest.raises(FileNotFoundError):
-        data.patient = "non-existent"
+        data.participant = "non-existent"
 
 
 def test_ern_init(ern):
-    data = ERNDataManager(root=ern, patient="12345")
-    assert len(data.find_patients()) == 1
+    data = ERNDataManager(root=ern, participant="12345")
+    assert len(data.find_participants()) == 1
     assert data.root == ern
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.eegfile)
     assert os.path.exists(data.vhdrfile)
     assert os.path.exists(data.vmrkfile)
@@ -41,26 +41,26 @@ def test_ern_init(ern):
 def test_ern_property_setter(ern):
     data = ERNDataManager()
     data.root = ern
-    data.patient = "12345"
-    assert len(data.find_patients()) == 1
+    data.participant = "12345"
+    assert len(data.find_participants()) == 1
     assert data.root == ern
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.eegfile)
     assert os.path.exists(data.vhdrfile)
     assert os.path.exists(data.vmrkfile)
 
 
-def test_ern_wrong_patient(ern):
+def test_ern_wrong_participant(ern):
     data = ERNDataManager(root=ern)
     with pytest.raises(FileNotFoundError):
-        data.patient = "23456"
+        data.participant = "23456"
 
 
 def test_faa_init(faa):
-    data = FAADataManager(root=faa, patient="12345")
-    assert len(data.find_patients()) == 1
+    data = FAADataManager(root=faa, participant="12345")
+    assert len(data.find_participants()) == 1
     assert data.root == faa
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.eegfile)
     assert os.path.exists(data.vhdrfile)
     assert os.path.exists(data.vmrkfile)
@@ -69,26 +69,26 @@ def test_faa_init(faa):
 def test_faa_property_setter(faa):
     data = FAADataManager()
     data.root = faa
-    data.patient = "12345"
-    assert len(data.find_patients()) == 1
+    data.participant = "12345"
+    assert len(data.find_participants()) == 1
     assert data.root == faa
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.eegfile)
     assert os.path.exists(data.vhdrfile)
     assert os.path.exists(data.vmrkfile)
 
 
-def test_faa_wrong_patient(faa):
+def test_faa_wrong_participant(faa):
     data = FAADataManager(root=faa)
     with pytest.raises(FileNotFoundError):
-        data.patient = "23456"
+        data.participant = "23456"
 
 
 def test_hrv_init(hrv):
-    data = HRVDataManager(root=hrv, patient="12345")
-    assert len(data.find_patients()) == 1
+    data = HRVDataManager(root=hrv, participant="12345")
+    assert len(data.find_participants()) == 1
     assert data.root == hrv
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.eegfile)
     assert os.path.exists(data.vhdrfile)
     assert os.path.exists(data.vmrkfile)
@@ -97,19 +97,19 @@ def test_hrv_init(hrv):
 def test_hrv_property_setter(hrv):
     data = HRVDataManager()
     data.root = hrv
-    data.patient = "12345"
-    assert len(data.find_patients()) == 1
+    data.participant = "12345"
+    assert len(data.find_participants()) == 1
     assert data.root == hrv
-    assert data.patient == "12345"
+    assert data.participant == "12345"
     assert os.path.exists(data.eegfile)
     assert os.path.exists(data.vhdrfile)
     assert os.path.exists(data.vmrkfile)
 
 
-def test_hrv_wrong_patient(hrv):
+def test_hrv_wrong_participant(hrv):
     data = HRVDataManager(root=hrv)
     with pytest.raises(FileNotFoundError):
-        data.patient = "23456"
+        data.participant = "23456"
 
 
 def test_faa_interactive(faa):

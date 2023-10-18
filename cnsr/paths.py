@@ -6,9 +6,9 @@ import re
 
 
 class DataManagerBase:
-    def __init__(self, root=None, patient=None):
+    def __init__(self, root=None, participant=None):
         self.root = root
-        self.patient = patient
+        self.participant = participant
 
     @property
     def root(self):
@@ -34,26 +34,26 @@ class DataManagerBase:
         self._root = root
 
     @property
-    def patient(self):
-        if self._patient is None:
-            raise ValueError("No patient was selected.")
+    def participant(self):
+        if self._participant is None:
+            raise ValueError("No participant was selected.")
 
-        return self._patient
+        return self._participant
 
-    @patient.setter
-    def patient(self, patient):
-        if patient is None:
-            self._patient = None
+    @participant.setter
+    def participant(self, participant):
+        if participant is None:
+            self._participant = None
             return
 
-        if patient not in self.find_patients():
+        if participant not in self.find_participants():
             raise FileNotFoundError(
-                f"Data for patient '{patient}' missing or incomplete"
+                f"Data for participant '{participant}' missing or incomplete"
             )
 
-        self._patient = patient
+        self._participant = participant
 
-    def find_patients(self):
+    def find_participants(self):
         return []
 
     def _repr_mimebundle_(self, **kwargs):
@@ -64,119 +64,119 @@ class DataManagerBase:
         )
         root.show_only_dirs = True
         root.title = "Data Root Directory"
-        patient = ipywidgets.Dropdown(description="Patient:")
+        participant = ipywidgets.Dropdown(description="Participant:")
 
         def _root_callback(c):
             self.root = c.value
-            patient.options = self.find_patients()
+            participant.options = self.find_participants()
 
         root.register_callback(_root_callback)
 
-        def _patient_callback(p):
+        def _participant_callback(p):
             if p["type"] == "change":
-                self.patient = p["new"]
+                self.participant = p["new"]
 
-        patient.observe(_patient_callback, names="value")
-        patient.options = self.find_patients()
+        participant.observe(_participant_callback, names="value")
+        participant.options = self.find_participants()
 
-        return ipywidgets.VBox(children=[root, patient])._repr_mimebundle_(**kwargs)
+        return ipywidgets.VBox(children=[root, participant])._repr_mimebundle_(**kwargs)
 
 
 class EDADataManager(DataManagerBase):
-    def find_patients(self):
-        patients = []
+    def find_participants(self):
+        participants = []
         for f in glob.glob(f"{self._root}{os.sep}*.txt"):
-            patient = re.match("([0-9]*).txt", os.path.relpath(f, self._root)).groups()[
-                0
-            ]
-            patients.append(patient)
+            participant = re.match(
+                "([0-9]*).txt", os.path.relpath(f, self._root)
+            ).groups()[0]
+            participants.append(participant)
 
-        return patients
+        return participants
 
     @property
     def filename(self):
-        return os.path.join(self.root, f"{self.patient}.txt")
+        return os.path.join(self.root, f"{self.participant}.txt")
 
 
 class ERNDataManager(DataManagerBase):
-    def find_patients(self):
-        patients = []
+    def find_participants(self):
+        participants = []
         for f in glob.glob(f"{self._root}{os.sep}sart_*.eeg"):
-            patient = re.match(
+            participant = re.match(
                 "sart_([0-9]*).eeg", os.path.relpath(f, self._root)
             ).groups()[0]
             if all(
-                os.path.exists(os.path.join(self._root, f"sart_{patient}.{ext}"))
+                os.path.exists(os.path.join(self._root, f"sart_{participant}.{ext}"))
                 for ext in ["eeg", "vhdr", "vmrk"]
             ):
-                patients.append(patient)
+                participants.append(participant)
 
-        return patients
+        return participants
 
     @property
     def eegfile(self):
-        return os.path.join(self._root, f"sart_{self.patient}.eeg")
+        return os.path.join(self._root, f"sart_{self.participant}.eeg")
 
     @property
     def vhdrfile(self):
-        return os.path.join(self._root, f"sart_{self.patient}.vhdr")
+        return os.path.join(self._root, f"sart_{self.participant}.vhdr")
 
     @property
     def vmrkfile(self):
-        return os.path.join(self._root, f"sart_{self.patient}.vmrk")
+        return os.path.join(self._root, f"sart_{self.participant}.vmrk")
 
 
 class FAADataManager(DataManagerBase):
-    def find_patients(self):
-        patients = []
+    def find_participants(self):
+        participants = []
         for f in glob.glob(f"{self._root}{os.sep}*.eeg"):
-            patient = re.match("([0-9]*).eeg", os.path.relpath(f, self._root)).groups()[
-                0
-            ]
+            participant = re.match(
+                "([0-9]*).eeg", os.path.relpath(f, self._root)
+            ).groups()[0]
             if all(
-                os.path.exists(os.path.join(self._root, f"{patient}.{ext}"))
+                os.path.exists(os.path.join(self._root, f"{participant}.{ext}"))
                 for ext in ["eeg", "vhdr", "vmrk"]
             ):
-                patients.append(patient)
+                participants.append(participant)
 
-        return patients
+        return participants
 
     @property
     def eegfile(self):
-        return os.path.join(self._root, f"{self.patient}.eeg")
+        return os.path.join(self._root, f"{self.participant}.eeg")
 
     @property
     def vhdrfile(self):
-        return os.path.join(self._root, f"{self.patient}.vhdr")
+        return os.path.join(self._root, f"{self.participant}.vhdr")
 
     @property
     def vmrkfile(self):
-        return os.path.join(self._root, f"{self.patient}.vmrk")
+        return os.path.join(self._root, f"{self.participant}.vmrk")
 
 
 class HRVDataManager(DataManagerBase):
-    def find_patients(self):
-        patients = []
+    def find_participants(self):
+        participants = []
         for f in glob.glob(f"{self._root}{os.sep}rest_*.eeg"):
-            patient = re.match(
+            participant = re.match(
                 "rest_([0-9]*).eeg", os.path.relpath(f, self._root)
             ).groups()[0]
             if all(
-                os.path.exists(os.path.join(self._root, f"rest_{patient}.{ext}"))
+                os.path.exists(os.path.join(self._root, f"rest_{participant}.{ext}"))
                 for ext in ["eeg", "vhdr", "vmrk"]
             ):
-                patients.append(patient)
+                participants.append(participant)
 
-        return patients
+        return participants
 
     @property
     def eegfile(self):
-        return os.path.join(self._root, f"rest_{self.patient}.eeg")
+        return os.path.join(self._root, f"rest_{self.participant}.eeg")
 
     @property
     def vhdrfile(self):
-        return os.path.join(self._root, f"rest_{self.patient}.vhdr")
+        return os.path.join(self._root, f"rest_{self.participant}.vhdr")
 
     @property
     def vmrkfile(self):
-        return os.path.join(self._root, f"rest_{self.patient}.vmrk")
+        return os.path.join(self._root, f"rest_{self.participant}.vmrk")
