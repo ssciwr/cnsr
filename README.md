@@ -5,6 +5,9 @@
 [![PyPI Release](https://img.shields.io/pypi/v/cnsr.svg)](https://pypi.org/project/cnsr)
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/cnsr.svg)](https://anaconda.org/conda-forge/cnsr)
 
+![CNSR_Logo_Final](https://github.com/ssciwr/cnsr/assets/72193532/cdde3cfa-723c-4119-ac69-b566ec7ff554)
+
+
 This repository provides Jupyter notebook templates required to perform analysis on the data created during experiments at the [CNSR core facility of Heidelberg University](https://cnsr.uni-heidelberg.de/).
 
 ## Installation
